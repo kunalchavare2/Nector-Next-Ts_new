@@ -1,8 +1,14 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+import type { Metadata } from "next";
+import "./globals.css";
+import Header from "./../components/Molecules/Header/Header";
+import AppProvider from "./provider";
+import StyledComponentsRegistry from "@/lib/registry";
+import GlobalStyles from "@/styles/globalStyles";
+import { OpenSans } from "@/styles/fonts";
+
+
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,9 +20,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+ 
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <AppProvider>
+      <html lang="en">
+        <body className={OpenSans.className}>
+      <GlobalStyles/>
+          <StyledComponentsRegistry>
+          <Header />{children}</StyledComponentsRegistry>
+        </body>
+      </html>
+    </AppProvider>
   );
 }
